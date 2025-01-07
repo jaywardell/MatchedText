@@ -72,4 +72,13 @@ struct String_MatchedSummary_Test {
         #expect(sut.matchedSummary(length: length, matching: match) == expected)
     }
 
+    @Test func if_filter_is_near_end_of_self_and_length_is_more_than_length_of_filter_then_returns_last_length_characters_of_self() async throws {
+        let sut = "cat on a tin roof"
+        let match = "tin"
+        let length = match.count + 5
+        let expected = "…" + sut.suffix(length)
+        
+        #expect(sut.matchedSummary(length: length, matching: match) == expected)
+    }
+
 }
