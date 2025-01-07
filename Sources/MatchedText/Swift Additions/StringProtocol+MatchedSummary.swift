@@ -10,25 +10,15 @@ extension StringProtocol {
         guard length > filter.count,
               !filter.isEmpty
         else { return "" }
-
-        if self.hasPrefix(filter) {
-            let end = Swift.min(length, count)
-            let endIndex = Swift.min(index(startIndex, offsetBy: end), endIndex)
-            let out = String(self[..<endIndex])
-            return out + (out.count < self.count ? "…" : "")
-        }
         
         if let found = self.range(of: filter) {
-            if found.upperBound <= index(startIndex, offsetBy: length) {
-                let end = Swift.min(length, count)
-                let endIndex = Swift.min(index(startIndex, offsetBy: end), endIndex)
-                let out = String(self[..<endIndex])
-                return out + (out.count < self.count ? "…" : "")
+            let end = Swift.min(length, count)
+            if found.upperBound <= index(startIndex, offsetBy: end) {
+                let lastIndex = Swift.min(index(startIndex, offsetBy: end), endIndex)
+                let out = String(self[..<lastIndex])
+                return out + (lastIndex == endIndex ? "" : "…")
             }
-        }
-
-        if self.contains(filter) { return String(self) }
-        
+        }        
         
         return ""
     }
