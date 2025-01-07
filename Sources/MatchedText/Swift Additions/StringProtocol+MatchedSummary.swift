@@ -39,14 +39,12 @@ extension StringProtocol {
                 else {
                     
                     // middle
-                    let out = String(self[firstIndex ..< index(firstIndex, offsetBy: length)])
+                    let start = index(firstIndex, offsetBy: -(length - filter.count)/2)
+                    let out = String(self[
+                        start ..<
+                        index(start, offsetBy: length)])
                     return ellipsis + out + ellipsis
                 }
-                
-                
-//                let lastIndex = Swift.min(index(firstIndex, offsetBy: length), endIndex)
-//                let out = String(self[firstIndex..<lastIndex])
-//                return out
             }
         }
         

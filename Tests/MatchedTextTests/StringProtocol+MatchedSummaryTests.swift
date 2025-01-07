@@ -90,11 +90,47 @@ struct String_MatchedSummary_Test {
         #expect(sut.matchedSummary(length: length, matching: match) == expected)
     }
 
-    @Test func if_filter_is_in_center_self_and_length_one_more_than_length_of_filter_then_returns_filter_plus_some_more_characters() async throws {
+    @Test func if_filter_is_in_center_self_and_length_one_more_than_length_of_filter_then_returns_filter_plus_succeeding_character() async throws {
         let sut = "cat on a tin roof"
         let match = "on"
         let length = match.count + 1
         let expected = ellipsis + "on " + ellipsis
+        
+        #expect(sut.matchedSummary(length: length, matching: match) == expected)
+    }
+
+    @Test func if_filter_is_in_center_self_and_length_two_more_than_length_of_filter_then_returns_filter_plus_one_preceding_and_one_succeeding_characters() async throws {
+        let sut = "cat on a tin roof"
+        let match = "on"
+        let length = match.count + 2
+        let expected = ellipsis + " on " + ellipsis
+        
+        #expect(sut.matchedSummary(length: length, matching: match) == expected)
+    }
+
+    @Test func if_filter_is_in_center_self_and_length_four_more_than_length_of_filter_then_returns_filter_plus_two_preceding_and_two_succeeding_characters() async throws {
+        let sut = "cat on a tin roof"
+        let match = "in"
+        let length = match.count + 4
+        let expected = ellipsis + " tin r" + ellipsis
+        
+        #expect(sut.matchedSummary(length: length, matching: match) == expected)
+    }
+
+    @Test func if_filter_is_in_center_self_and_length_five_more_than_length_of_filter_then_returns_filter_plus_two_preceding_and_three_succeeding_characters() async throws {
+        let sut = "cat on a tin roof sundae"
+        let match = "in"
+        let length = match.count + 5
+        let expected = ellipsis + " tin ro" + ellipsis
+        
+        #expect(sut.matchedSummary(length: length, matching: match) == expected)
+    }
+
+    @Test func if_filter_is_in_center_self_and_length_eight_more_than_length_of_filter_then_returns_filter_plus_four_preceding_and_four_succeeding_characters() async throws {
+        let sut = "cat on a tin roof sundae"
+        let match = "in"
+        let length = match.count + 8
+        let expected = ellipsis + " a tin roo" + ellipsis
         
         #expect(sut.matchedSummary(length: length, matching: match) == expected)
     }
