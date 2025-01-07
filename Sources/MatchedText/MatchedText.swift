@@ -20,7 +20,9 @@ struct MatchedText: View {
     let text: AttributedString
     @Environment(\.searchFilter) var searchFilter
     @Environment(\.lineLength) var lineLength
-    
+    let highlight: (_ string: inout AttributedString,
+                    _ range: Range<AttributedString.Index>) -> Void
+
     // TODO: it would be nice to have a macLength environment property (optional Int)
     // if it's set, then only show the part of the string surrounding the first found instance.
     
@@ -30,13 +32,16 @@ struct MatchedText: View {
     }
 
     var body: some View {
-        HighlightedMatchingText(text: text, highlighted: searchFilter, maxLength: lineLength, highlight: Self.defaultHighlight(_:in:))
+        HighlightedMatchingText(text: text, highlighted: searchFilter, maxLength: lineLength, highlight: highlight)
     }
 }
 
 extension MatchedText {
-    init(_ string: any StringProtocol) {
-        self.init(text: AttributedString(string))
+    init(_ string: any StringProtocol, highlight: @escaping (_ string: inout AttributedString,
+                                                             _ range: Range<AttributedString.Index>) -> Void = Self.defaultHighlight(_:in:)) {
+        self.init(text: AttributedString(string),
+                  highlight: highlight
+        )
     }
 }
 
@@ -48,9 +53,19 @@ extension MatchedText {
         MatchedText("dear little buttercup")
         MatchedText("won't you stay a while")
 
-        MatchedText(text: "Howdy World")
+        MatchedText(text: "Howdy World") { string, range in
+            string[range].backgroundColor = .pink
+        }
             .font(.largeTitle.bold())
-        MatchedText(text: "Hello World")
+
+        MatchedText(text: "Hi There World") { string, range in
+            string[range].foregroundColor = .pink
+        }
+            .font(.largeTitle.bold())
+
+        MatchedText(text: "Hello World") { string, range in
+            string[range].backgroundColor = .orange
+        }
             .font(.largeTitle.bold())
         MatchedText("The quick brown fox jumped over the lazy dog")
             .lineLimit(1)
