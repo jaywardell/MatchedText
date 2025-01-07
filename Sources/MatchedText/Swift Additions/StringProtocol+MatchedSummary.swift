@@ -35,7 +35,8 @@ extension StringProtocol {
                 else {
                     
                     // middle
-                    return String(self[firstIndex ..< index(firstIndex, offsetBy: length)])
+                    let out = String(self[firstIndex ..< index(firstIndex, offsetBy: length)])
+                    return "…" + out + "…"
                 }
                 
                 

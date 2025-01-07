@@ -85,7 +85,7 @@ struct String_MatchedSummary_Test {
         let sut = "cat on a tin roof"
         let match = "on"
         let length = match.count
-        let expected = match
+        let expected = "…" + match + "…"
         
         #expect(sut.matchedSummary(length: length, matching: match) == expected)
     }
