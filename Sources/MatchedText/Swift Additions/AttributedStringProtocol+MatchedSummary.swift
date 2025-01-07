@@ -11,13 +11,13 @@ public let ellipsis: AttributedString = "…"
 
 extension AttributedStringProtocol {
         
-    public func previewString(matching filter: any StringProtocol, length: Int) -> AttributedString {
+    private func rangeOfPreviewString(matching filter: any StringProtocol, length: Int) -> Range<AttributedString.Index> {
         guard length >= filter.count,
               !filter.isEmpty
         else {
-            return ""
+            return startIndex ..< startIndex
         }
-                
+        
         var beginning: AttributedString.Index = startIndex
         var ending: AttributedString.Index = startIndex
 
@@ -50,14 +50,20 @@ extension AttributedStringProtocol {
                 }
             }
         }
+        return beginning ..< ending
+    }
+    
+    public func previewString(matching filter: any StringProtocol, length: Int) -> AttributedString {
+
+        let range = rangeOfPreviewString(matching: filter, length: length)
+        guard !range.isEmpty else { return "" }
         
-        let range = beginning ..< ending
         var out = AttributedString(self[range])
         
-        if ending < endIndex {
+        if range.upperBound < endIndex {
             out += ellipsis
         }
-        if beginning > startIndex {
+        if range.lowerBound > startIndex {
             out = ellipsis + out
         }
         
