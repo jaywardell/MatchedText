@@ -44,4 +44,14 @@ struct String_MatchedSummary_Test {
         
         #expect(sut.matchedSummary(length: length, matching: match) == expected)
     }
+    
+    @Test func if_filter_is_in_first_length_characters_of_self_then_returns_first_length_characters_of_self() async throws {
+        let sut = "cat on a tin roof"
+        let match = "on"
+        let length = 6
+        let expected = sut.prefix(length) + "…"
+        
+        #expect(sut.matchedSummary(length: length, matching: match) == expected)
+    }
+
 }

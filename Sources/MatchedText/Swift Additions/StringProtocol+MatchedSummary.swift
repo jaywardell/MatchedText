@@ -17,6 +17,15 @@ extension StringProtocol {
             let out = String(self[..<endIndex])
             return out + (out.count < self.count ? "…" : "")
         }
+        
+        if let found = self.range(of: filter) {
+            if found.upperBound <= index(startIndex, offsetBy: length) {
+                let end = Swift.min(length, count)
+                let endIndex = Swift.min(index(startIndex, offsetBy: end), endIndex)
+                let out = String(self[..<endIndex])
+                return out + (out.count < self.count ? "…" : "")
+            }
+        }
 
         if self.contains(filter) { return String(self) }
         
