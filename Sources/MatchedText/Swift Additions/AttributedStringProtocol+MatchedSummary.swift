@@ -11,7 +11,7 @@ public let ellipsis: AttributedString = "…"
 
 extension AttributedStringProtocol {
         
-    public func matchedSummary(length: Int, matching filter: any StringProtocol) -> AttributedString {
+    public func previewString(matching filter: any StringProtocol, length: Int) -> AttributedString {
         guard length >= filter.count,
               !filter.isEmpty
         else {

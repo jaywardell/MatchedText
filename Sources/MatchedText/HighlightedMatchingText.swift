@@ -27,7 +27,7 @@ struct HighlightedMatchingText: View {
     
     var displayed: AttributedString {
         var out: AttributedString = maxLength.map {
-            text.matchedSummary(length: $0, matching: highlighted)
+            text.previewString(matching: highlighted, length: $0)
         } ?? text
         
         var start = out.startIndex
