@@ -22,9 +22,6 @@ struct MatchedText: View {
     @Environment(\.lineLength) var lineLength
     let highlight: (_ string: inout AttributedString,
                     _ range: Range<AttributedString.Index>) -> Void
-
-    // TODO: it would be nice to have a macLength environment property (optional Int)
-    // if it's set, then only show the part of the string surrounding the first found instance.
     
     static func defaultHighlight(_ string: inout AttributedString,
                                  in range: Range<AttributedString.Index>) {
