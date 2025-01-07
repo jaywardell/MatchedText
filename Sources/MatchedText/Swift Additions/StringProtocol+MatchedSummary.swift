@@ -7,7 +7,7 @@
 
 extension StringProtocol {
     public func matchedSummary(length: Int, matching filter: any StringProtocol) -> String {
-        guard length > 0 else { return "" }
+        guard length > filter.count else { return "" }
         
         if self.contains(filter) { return String(self) }
         
