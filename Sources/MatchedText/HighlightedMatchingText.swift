@@ -27,10 +27,12 @@ struct HighlightedMatchingText: View {
     }
     
     var displayed: AttributedString {
-        var out = text
+        var out: AttributedString = maxLength.map {
+            text.matchedSummary(length: $0, matching: highlighted)
+        } ?? text
         
-        var start = text.startIndex
-        var remaining = text[start...]
+        var start = out.startIndex
+        var remaining = out[start...]
         repeat {
             if let found = remaining.range(
                 of: highlighted,
