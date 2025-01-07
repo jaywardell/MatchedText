@@ -15,7 +15,7 @@ extension EnvironmentValues {
 
 /// Presents an AttributedString with any instances of `searchFilter`
 /// (taken from the @Environment) highlighted
-struct MatchedText: View {
+public struct MatchedText: View {
     
     let text: AttributedString
     @Environment(\.searchFilter) var searchFilter
@@ -23,17 +23,17 @@ struct MatchedText: View {
     let highlight: (_ string: inout AttributedString,
                     _ range: Range<AttributedString.Index>) -> Void
     
-    static func defaultHighlight(_ string: inout AttributedString,
+    public static func defaultHighlight(_ string: inout AttributedString,
                                  in range: Range<AttributedString.Index>) {
         string[range].foregroundColor = .accentColor
     }
 
-    var body: some View {
+    public var body: some View {
         HighlightedMatchingText(text: text, highlighted: searchFilter, maxLength: lineLength, highlight: highlight)
     }
 }
 
-extension MatchedText {
+public extension MatchedText {
     init(_ string: any StringProtocol, highlight: @escaping (_ string: inout AttributedString,
                                                              _ range: Range<AttributedString.Index>) -> Void = Self.defaultHighlight(_:in:)) {
         self.init(text: AttributedString(string),

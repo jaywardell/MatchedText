@@ -8,7 +8,7 @@
 import SwiftUI
 
 /// Like a normal MatchedText, but only shows the lines that have matches
-struct MultilineMatchedText: View {
+public struct MultilineMatchedText: View {
     
     let text: String
     @Environment(\.searchFilter) var searchFilter
@@ -19,7 +19,7 @@ struct MultilineMatchedText: View {
     }
     
     
-    var body: some View {
+    public var body: some View {
         // yes, there could be duplicate lines here,
         // but the point is to show a concise view
         // so duplicates should be ignored anyway
