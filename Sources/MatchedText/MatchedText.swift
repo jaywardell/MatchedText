@@ -10,6 +10,7 @@ import VisualDebugging
 
 extension EnvironmentValues {
     @Entry var searchFilter: String = ""
+    @Entry var lineLength: Int?
 }
 
 /// Presents an AttributedString with any instances of `searchFilter`
@@ -18,13 +19,14 @@ struct MatchedText: View {
     
     let text: AttributedString
     @Environment(\.searchFilter) var searchFilter
+    @Environment(\.lineLength) var lineLength
     
     // TODO: it would be nice to have a macLength environment property (optional Int)
     // if it's set, then only show the part of the string surrounding the first found instance.
     
     var body: some View {
         // TODO: pull maxLength from somewhere
-        HighlightedMatchingText(text: text, highlighted: searchFilter, maxLength: nil)
+        HighlightedMatchingText(text: text, highlighted: searchFilter, maxLength: lineLength)
     }
 }
 
@@ -46,6 +48,9 @@ extension MatchedText {
             .font(.largeTitle.bold())
         MatchedText(text: "Hello World")
             .font(.largeTitle.bold())
+        MatchedText("The quick brown fox jumped over the lazy dog")
+            .lineLimit(1)
+            .environment(\.lineLength, 20)
     }
     .environment(\.searchFilter, "e")
     .font(.body)
