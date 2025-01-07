@@ -14,7 +14,13 @@ extension StringProtocol {
         if self.hasPrefix(filter) {
             let end = Swift.min(length, count)
             let endIndex = Swift.min(index(startIndex, offsetBy: end), endIndex)
-            return String(self[..<endIndex])
+            let out = String(self[..<endIndex])
+            if out.count < self.count {
+                return out + "…"
+            }
+            else {
+                return out
+            }
         }
 
         if self.contains(filter) { return String(self) }

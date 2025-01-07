@@ -40,7 +40,7 @@ struct String_MatchedSummary_Test {
         let sut = "cat on a tin roof"
         let match = "cat"
         let length = 6
-        let expected = sut.prefix(length)
+        let expected = sut.prefix(length) + "…"
         
         #expect(sut.matchedSummary(length: length, matching: match) == expected)
     }
