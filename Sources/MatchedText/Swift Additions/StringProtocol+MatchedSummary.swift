@@ -9,6 +9,7 @@ public let ellipsis: String = "…"
 
 extension StringProtocol {
         
+    // TODO: should respect case-insensitive search
     public func matchedSummary(length: Int, matching filter: any StringProtocol) -> String {
         guard length >= filter.count,
               !filter.isEmpty
