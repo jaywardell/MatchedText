@@ -23,7 +23,7 @@ struct MultilineMatchedText: View {
         // yes, there could be duplicate lines here,
         // but the point is to show a concise view
         // so duplicates should be ignored anyway
-        VStack {
+        VStack(alignment: .leading) {
             ForEach(0 ..< matchingLines.count, id: \.self) { index in
                 let line = matchingLines[index]
                 MatchedText(line)
