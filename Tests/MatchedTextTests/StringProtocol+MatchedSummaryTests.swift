@@ -36,7 +36,23 @@ struct String_MatchedSummary_Test {
         
         #expect(sut.matchedSummary(length: 10, matching: match) == expected)
     }
-    
+
+    @Test func respects_case_insensitive_search() async throws {
+        let match = "cat"
+        let sut = AttributedString(match.capitalized)
+        let expected = sut
+        
+        #expect(sut.matchedSummary(length: 10, matching: match) == expected)
+    }
+
+    @Test func respects_diacritics() async throws {
+        let match = "cat"
+        let sut = AttributedString("cát")
+        let expected = sut
+        
+        #expect(sut.matchedSummary(length: 10, matching: match) == expected)
+    }
+
     @Test func if_filter_is_prefix_of_self_then_returns_first_length_characters_of_self() async throws {
         let sut = AttributedString("cat on a tin roof")
         let match = "cat"

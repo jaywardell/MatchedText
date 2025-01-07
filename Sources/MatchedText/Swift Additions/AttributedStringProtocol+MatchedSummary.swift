@@ -11,7 +11,6 @@ public let ellipsis: AttributedString = "…"
 
 extension AttributedStringProtocol {
         
-    // TODO: should respect case-insensitive search
     public func matchedSummary(length: Int, matching filter: any StringProtocol) -> AttributedString {
         guard length >= filter.count,
               !filter.isEmpty
@@ -19,7 +18,7 @@ extension AttributedStringProtocol {
             return ""
         }
         
-        if let found = self.range(of: filter) {
+        if let found = self.range(of: filter, options: [.caseInsensitive, .diacriticInsensitive]) {
             let end = Swift.min(length, characters.count)
             
             // prefix
