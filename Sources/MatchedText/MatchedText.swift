@@ -30,7 +30,6 @@ struct MatchedText: View {
     }
 
     var body: some View {
-        // TODO: pull maxLength from somewhere
         HighlightedMatchingText(text: text, highlighted: searchFilter, maxLength: lineLength, highlight: Self.defaultHighlight(_:in:))
     }
 }
