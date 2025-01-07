@@ -1,0 +1,15 @@
+{
+  "originHash" : "4887015bb0336cca6fa60918c3da9606635d354b653ed251797588662bdbd390",
+  "pins" : [
+    {
+      "identity" : "visualdebugging",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/jaywardell/VisualDebugging",
+      "state" : {
+        "revision" : "62f2d8cbf123dc2213580f89d7124cd8f762bb5b",
+        "version" : "0.1.0"
+      }
+    }
+  ],
+  "version" : 3
+}
