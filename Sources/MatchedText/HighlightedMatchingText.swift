@@ -84,7 +84,7 @@ extension HighlightedMatchingText {
     List {
         HighlightedMatchingText("The quick brown fox jumped over the lazy dog", filter: "over")
             .lineLimit(1)
-        HighlightedMatchingText("The quick brown fox jumped over the lazy dog", filter: "quick")
+        HighlightedMatchingText("The quick brown fox jumped over the lazy dog", filter: " quick")
             .lineLimit(1)
     }
     .reasonablySizedPreview()
