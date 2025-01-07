@@ -23,7 +23,6 @@ struct HighlightedMatchingText: View {
         string[range].font = font?.weight(.semibold)
         string[range].underlineStyle = Text.LineStyle(
             pattern: .solid, color: .yellow)
-
     }
     
     var displayed: AttributedString {
