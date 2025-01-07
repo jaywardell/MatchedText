@@ -1,6 +1,6 @@
 //
 //  MatchedText.swift
-//  toss
+//  MatchedText
 //
 //  Created by Joseph Wardell on 12/30/24.
 //

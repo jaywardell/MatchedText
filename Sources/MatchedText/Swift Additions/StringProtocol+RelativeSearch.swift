@@ -1,6 +1,6 @@
 //
 //  StringProtocol+RelativeSearch.swift
-//  toss
+//  MatchedText
 //
 //  Created by Joseph Wardell on 1/1/25.
 //
