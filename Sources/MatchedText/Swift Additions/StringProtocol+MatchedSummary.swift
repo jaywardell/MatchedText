@@ -23,7 +23,7 @@ extension StringProtocol {
                 let firstIndex = found.lowerBound
                 let suffix = self[firstIndex...]
                 if suffix.count <= length {
-                    return String(self[firstIndex ..< endIndex])
+                    return "…" + String(self[firstIndex ..< endIndex])
                 }
                 
 //                let lastIndex = Swift.min(index(firstIndex, offsetBy: length), endIndex)
