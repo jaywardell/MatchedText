@@ -36,7 +36,7 @@ struct String_MatchedSummary_Test {
         #expect(sut.matchedSummary(length: 10, matching: match) == expected)
     }
     
-    @Test func if_matching_is_prefix_of_self_then_returns_first_length_characters_of_self() async throws {
+    @Test func if_filter_is_prefix_of_self_then_returns_first_length_characters_of_self() async throws {
         let sut = "cat on a tin roof"
         let match = "cat"
         let length = 6
