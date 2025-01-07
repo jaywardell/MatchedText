@@ -142,6 +142,13 @@ extension HighlightedMatchingText {
         )
             .lineLimit(1)
 
+        HighlightedMatchingText(
+            "The quick brown fox jumped over the lazy dog",
+            filter: "dog",
+            maxLength: "The quick brown fox jumped over the lazy dog".count * 10
+        )
+            .lineLimit(1)
+
     }
     .reasonablySizedPreview()
 }
