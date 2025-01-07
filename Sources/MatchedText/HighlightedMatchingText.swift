@@ -91,62 +91,93 @@ extension HighlightedMatchingText {
     .reasonablySizedPreview()
 }
 
-#Preview("Long HighlightedText with max length") {
-    List {
+#Preview("max length") {
+    
+    let quickbrown = "The quick brown fox jumped over the lazy dog"
+    
+    return List {
 
-        HighlightedMatchingText("The quick brown fox jumped over the lazy dog", filter: "over", maxLength: 10)
+        HighlightedMatchingText(quickbrown, filter: "over", maxLength: 10)
             .lineLimit(1)
 
-        HighlightedMatchingText("The quick brown fox jumped over the lazy dog", filter: "quick", maxLength: 5)
+        HighlightedMatchingText(quickbrown, filter: "quick", maxLength: 5)
             .lineLimit(1)
 
-        HighlightedMatchingText("The quick brown fox jumped over the lazy dog", filter: "The", maxLength: 3)
+        HighlightedMatchingText(quickbrown, filter: "The", maxLength: 3)
             .lineLimit(1)
 
-        HighlightedMatchingText("The quick brown fox jumped over the lazy dog", filter: "The", maxLength: 7)
+        HighlightedMatchingText(quickbrown, filter: "The", maxLength: 7)
             .lineLimit(1)
         
-        HighlightedMatchingText("The quick brown fox jumped over the lazy dog", filter: "dog", maxLength: 3)
+        HighlightedMatchingText(quickbrown, filter: "dog", maxLength: 3)
             .lineLimit(1)
 
-        HighlightedMatchingText("The quick brown fox jumped over the lazy dog", filter: "dog", maxLength: 10)
+        HighlightedMatchingText(quickbrown, filter: "dog", maxLength: 10)
             .lineLimit(1)
 
-        HighlightedMatchingText("The quick brown fox jumped over the lazy dog", filter: "brown", maxLength: 5)
+        HighlightedMatchingText(quickbrown, filter: "brown", maxLength: 5)
             .lineLimit(1)
 
-        HighlightedMatchingText("The quick brown fox jumped over the lazy dog", filter: "brown", maxLength: 13)
+        HighlightedMatchingText(quickbrown, filter: "brown", maxLength: 13)
             .lineLimit(1)
 
-        HighlightedMatchingText("The quick brown fox jumped over the lazy dog", filter: "jumped", maxLength: 100)
+        HighlightedMatchingText(quickbrown, filter: "jumped", maxLength: 100)
             .lineLimit(1)
 
-        HighlightedMatchingText("The quick brown fox jumped over the lazy dog", filter: "", maxLength: 10)
+        HighlightedMatchingText(quickbrown, filter: "", maxLength: 10)
             .lineLimit(1)
 
-        HighlightedMatchingText("The quick brown fox jumped over the lazy dog", filter: "The quick brown fox jumped over the lazy dog", maxLength: 10)
+        HighlightedMatchingText(quickbrown, filter: quickbrown, maxLength: 10)
             .lineLimit(1)
 
         HighlightedMatchingText(
-            "The quick brown fox jumped over the lazy dog",
-            filter: "The quick brown fox jumped over the lazy dog",
-            maxLength: "The quick brown fox jumped over the lazy dog".count
+            quickbrown,
+            filter: quickbrown,
+            maxLength: quickbrown.count
         )
             .lineLimit(1)
 
         HighlightedMatchingText(
-            "The quick brown fox jumped over the lazy dog",
-            filter: "The quick brown fox jumped over the lazy dog",
-            maxLength: "The quick brown fox jumped over the lazy dog".count * 10
+            quickbrown,
+            filter: quickbrown,
+            maxLength: quickbrown.count * 10
         )
             .lineLimit(1)
 
         HighlightedMatchingText(
-            "The quick brown fox jumped over the lazy dog",
+            quickbrown,
             filter: "dog",
-            maxLength: "The quick brown fox jumped over the lazy dog".count * 10
+            maxLength: quickbrown.count * 10
         )
             .lineLimit(1)
+
+        HighlightedMatchingText(
+            quickbrown,
+            filter: quickbrown,
+            maxLength: quickbrown.count
+        )
+            .lineLimit(1)
+            .narrowerPreview()
+
+        HighlightedMatchingText(
+            quickbrown,
+            filter: "lazy dog",
+            maxLength: quickbrown.count
+        )
+            .lineLimit(1)
+            .narrowerPreview()
+
+        // yes, the highlighted characters don't appear here,
+        // but that's because of narrowerPreview()
+        // it would be foolish to try to do something about it
+        // on our end
+        HighlightedMatchingText(
+            quickbrown,
+            filter: "jumped over",
+            maxLength: quickbrown.count
+        )
+            .lineLimit(1)
+            .narrowerPreview()
 
     }
     .reasonablySizedPreview()
