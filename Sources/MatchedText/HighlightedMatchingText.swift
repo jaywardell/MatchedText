@@ -110,6 +110,15 @@ extension HighlightedMatchingText {
         HighlightedMatchingText("The quick brown fox jumped over the lazy dog", filter: "dog", maxLength: 10)
             .lineLimit(1)
 
+        HighlightedMatchingText("The quick brown fox jumped over the lazy dog", filter: "brown", maxLength: 5)
+            .lineLimit(1)
+
+        HighlightedMatchingText("The quick brown fox jumped over the lazy dog", filter: "brown", maxLength: 13)
+            .lineLimit(1)
+
+        HighlightedMatchingText("The quick brown fox jumped over the lazy dog", filter: "jumped", maxLength: 100)
+            .lineLimit(1)
+
     }
     .reasonablySizedPreview()
 }
