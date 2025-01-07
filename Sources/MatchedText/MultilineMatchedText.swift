@@ -11,8 +11,17 @@ import SwiftUI
 public struct MultilineMatchedText: View {
     
     let text: String
+    let highlight: (_ string: inout AttributedString,
+                    _ range: Range<AttributedString.Index>) -> Void
+
     @Environment(\.searchFilter) var searchFilter
 
+    public init(text: String,
+         highlight: @escaping (_: inout AttributedString, _: Range<AttributedString.Index>) -> Void = MatchedText.defaultHighlight) {
+        self.text = text
+        self.highlight = highlight
+    }
+    
     private var matchingLines: [String] {
         text.components(separatedBy: .newlines)
             .filter { $0.localizedCaseInsensitiveContains(searchFilter) }
@@ -26,7 +35,7 @@ public struct MultilineMatchedText: View {
         VStack(alignment: .leading) {
             ForEach(0 ..< matchingLines.count, id: \.self) { index in
                 let line = matchingLines[index]
-                MatchedText(line)
+                MatchedText(line, highlight: highlight)
                     .lineLimit(1)
             }
         }
@@ -87,7 +96,10 @@ public struct MultilineMatchedText: View {
      -- Joyce Kilmer
     """
      // from https://poets.org/poem/trees
-    )
+    ) { string, range in
+        string[range].foregroundColor = .teal
+        string[range].font = .title3.bold().italic()
+    }
     .environment(\.searchFilter, "ee")
     .environment(\.lineLength, 25)
     .padding()
