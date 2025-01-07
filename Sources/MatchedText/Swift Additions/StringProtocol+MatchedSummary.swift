@@ -14,6 +14,8 @@ extension StringProtocol {
         
         if let found = self.range(of: filter) {
             let end = Swift.min(length, count)
+            
+            // prefix
             if found.upperBound <= index(startIndex, offsetBy: end) {
                 let lastIndex = Swift.min(index(startIndex, offsetBy: end), endIndex)
                 let out = String(self[..<lastIndex])
@@ -25,8 +27,15 @@ extension StringProtocol {
                                            // length cannot be longer than count here
                                            index(endIndex, offsetBy: -length))
                 let suffix = self[firstIndex...]
+                
+                // suffix
                 if suffix.count <= length {
                     return "…" + String(self[firstIndex ..< endIndex])
+                }
+                else {
+                    
+                    // middle
+                    return String(self[firstIndex ..< index(firstIndex, offsetBy: length)])
                 }
                 
                 
