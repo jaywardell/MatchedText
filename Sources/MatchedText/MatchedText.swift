@@ -8,7 +8,7 @@
 import SwiftUI
 import VisualDebugging
 
-extension EnvironmentValues {
+public extension EnvironmentValues {
     @Entry var searchFilter: String = ""
     @Entry var lineLength: Int?
 }
@@ -22,6 +22,14 @@ public struct MatchedText: View {
     @Environment(\.lineLength) var lineLength
     let highlight: (_ string: inout AttributedString,
                     _ range: Range<AttributedString.Index>) -> Void
+    
+    public init(
+        text: AttributedString,
+        highlight: @escaping (_: inout AttributedString, _: Range<AttributedString.Index>) -> Void
+    ) {
+        self.text = text
+        self.highlight = highlight
+    }
     
     public static func defaultHighlight(_ string: inout AttributedString,
                                  in range: Range<AttributedString.Index>) {
