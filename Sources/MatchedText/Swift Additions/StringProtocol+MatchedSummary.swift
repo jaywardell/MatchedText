@@ -1,8 +1,12 @@
 //
-//  File.swift
+//  StringProtocol+MatchedSummary.swift
 //  MatchedText
 //
 //  Created by Joseph Wardell on 1/6/25.
 //
 
-import Foundation
+extension StringProtocol {
+    public func matchedSummary(length: Int, matching: any StringProtocol) -> some StringProtocol {
+        ""
+    }
+}

@@ -6,11 +6,14 @@
 //
 
 import Testing
+import MatchedText
 
-struct Test {
+struct String_MatchedSummary_Test {
 
-    @Test func <#test function name#>() async throws {
-        // Write your test here and use APIs like `#expect(...)` to check expected conditions.
+    @Test func test_empty_returns_empty() async throws {
+        let sut = ""
+        
+        #expect(sut.matchedSummary(length: 0, matching: "") == "")
     }
 
 }
