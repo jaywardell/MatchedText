@@ -25,7 +25,7 @@ public struct MatchedText: View {
     
     public init(
         text: AttributedString,
-        highlight: @escaping (_: inout AttributedString, _: Range<AttributedString.Index>) -> Void
+        highlight: @escaping (_: inout AttributedString, _: Range<AttributedString.Index>) -> Void = Self.defaultHighlight
     ) {
         self.text = text
         self.highlight = highlight
