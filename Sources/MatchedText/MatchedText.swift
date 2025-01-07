@@ -24,9 +24,14 @@ struct MatchedText: View {
     // TODO: it would be nice to have a macLength environment property (optional Int)
     // if it's set, then only show the part of the string surrounding the first found instance.
     
+    static func defaultHighlight(_ string: inout AttributedString,
+                                 in range: Range<AttributedString.Index>) {
+        string[range].foregroundColor = .accentColor
+    }
+
     var body: some View {
         // TODO: pull maxLength from somewhere
-        HighlightedMatchingText(text: text, highlighted: searchFilter, maxLength: lineLength)
+        HighlightedMatchingText(text: text, highlighted: searchFilter, maxLength: lineLength, highlight: Self.defaultHighlight(_:in:))
     }
 }
 

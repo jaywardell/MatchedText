@@ -15,14 +15,14 @@ struct HighlightedMatchingText: View {
     let text: AttributedString
     let highlighted: String
     let maxLength: Int?
+    let highlight: (_ string: inout AttributedString,
+                    _ range: Range<AttributedString.Index>) -> Void
 
     @Environment(\.font) var font
-
-    private func highlight(_ string: inout AttributedString,
-                           in range: Range<AttributedString.Index>) {
-        string[range].font = font?.weight(.semibold)
-        string[range].underlineStyle = Text.LineStyle(
-            pattern: .solid, color: .yellow)
+    
+    static func defaultHighlight(_ string: inout AttributedString,
+                                 in range: Range<AttributedString.Index>) {
+        string[range].backgroundColor = .accentColor
     }
     
     var displayed: AttributedString {
@@ -37,7 +37,7 @@ struct HighlightedMatchingText: View {
                 of: highlighted,
                 options: [.caseInsensitive, .diacriticInsensitive]
             ) {
-                highlight(&out, in: found)
+                highlight(&out, found)
                 start = found.upperBound
             }
             else {
@@ -58,8 +58,14 @@ struct HighlightedMatchingText: View {
 
 
 extension HighlightedMatchingText {
-    init(_ text: any StringProtocol, filter: String, maxLength: Int? = nil) {
-        self.init(text: AttributedString(text), highlighted: filter, maxLength: maxLength)
+    init(
+        _ text: any StringProtocol,
+        filter: String,
+        maxLength: Int? = nil,
+        highlight: @escaping (_ string: inout AttributedString,
+                              _ range: Range<AttributedString.Index>) -> Void = Self.defaultHighlight
+    ) {
+        self.init(text: AttributedString(text), highlighted: filter, maxLength: maxLength, highlight: highlight)
     }
 }
 
@@ -74,7 +80,9 @@ extension HighlightedMatchingText {
         HighlightedMatchingText("Héllo World".prefix(5), filter: "e")
         HighlightedMatchingText("da doo ron ron ron, da doo ron ron", filter: "ron")
 
-        HighlightedMatchingText(text: "Hello World", highlighted: "ll", maxLength: nil)
+        HighlightedMatchingText(text: "Hello World", highlighted: "ll", maxLength: nil) { string, range in
+            string[range].font = .title.bold()
+        }
             .font(.largeTitle.bold())
     }
     .font(.body)
