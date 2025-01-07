@@ -13,7 +13,8 @@ extension StringProtocol {
         guard length >= filter.count,
               !filter.isEmpty
         else {
-            return "" }
+            return ""
+        }
         
         if let found = self.range(of: filter) {
             let end = Swift.min(length, count)

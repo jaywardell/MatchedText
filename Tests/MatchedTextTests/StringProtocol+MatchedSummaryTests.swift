@@ -90,4 +90,13 @@ struct String_MatchedSummary_Test {
         #expect(sut.matchedSummary(length: length, matching: match) == expected)
     }
 
+    @Test func if_filter_is_in_center_self_and_length_one_more_than_length_of_filter_then_returns_filter_plus_some_more_characters() async throws {
+        let sut = "cat on a tin roof"
+        let match = "on"
+        let length = match.count + 1
+        let expected = ellipsis + "on " + ellipsis
+        
+        #expect(sut.matchedSummary(length: length, matching: match) == expected)
+    }
+
 }
