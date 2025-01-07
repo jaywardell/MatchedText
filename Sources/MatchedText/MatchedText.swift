@@ -23,7 +23,8 @@ struct MatchedText: View {
     // if it's set, then only show the part of the string surrounding the first found instance.
     
     var body: some View {
-        HighlightedMatchingText(text: text, highlighted: searchFilter)
+        // TODO: pull maxLength from somewhere
+        HighlightedMatchingText(text: text, highlighted: searchFilter, maxLength: nil)
     }
 }
 

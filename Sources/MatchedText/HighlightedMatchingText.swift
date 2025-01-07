@@ -14,6 +14,7 @@ struct HighlightedMatchingText: View {
     
     let text: AttributedString
     let highlighted: String
+    let maxLength: Int?
 
     @Environment(\.font) var font
 
@@ -56,8 +57,8 @@ struct HighlightedMatchingText: View {
 
 
 extension HighlightedMatchingText {
-    init(_ text: any StringProtocol, filter: String) {
-        self.init(text: AttributedString(text), highlighted: filter)
+    init(_ text: any StringProtocol, filter: String, maxLength: Int? = nil) {
+        self.init(text: AttributedString(text), highlighted: filter, maxLength: maxLength)
     }
 }
 
@@ -72,7 +73,7 @@ extension HighlightedMatchingText {
         HighlightedMatchingText("Héllo World".prefix(5), filter: "e")
         HighlightedMatchingText("da doo ron ron ron, da doo ron ron", filter: "ron")
 
-        HighlightedMatchingText(text: "Hello World", highlighted: "ll")
+        HighlightedMatchingText(text: "Hello World", highlighted: "ll", maxLength: nil)
             .font(.largeTitle.bold())
     }
     .font(.body)
@@ -85,6 +86,30 @@ extension HighlightedMatchingText {
             .lineLimit(1)
         HighlightedMatchingText("The quick brown fox jumped over the lazy dog", filter: "quick")
             .lineLimit(1)
+    }
+    .reasonablySizedPreview()
+}
+
+#Preview("Long HighlightedText with max length") {
+    List {
+        HighlightedMatchingText("The quick brown fox jumped over the lazy dog", filter: "over", maxLength: 10)
+            .lineLimit(1)
+
+        HighlightedMatchingText("The quick brown fox jumped over the lazy dog", filter: "quick", maxLength: 5)
+            .lineLimit(1)
+
+        HighlightedMatchingText("The quick brown fox jumped over the lazy dog", filter: "The", maxLength: 3)
+            .lineLimit(1)
+
+        HighlightedMatchingText("The quick brown fox jumped over the lazy dog", filter: "The", maxLength: 7)
+            .lineLimit(1)
+        
+        HighlightedMatchingText("The quick brown fox jumped over the lazy dog", filter: "dog", maxLength: 3)
+            .lineLimit(1)
+
+        HighlightedMatchingText("The quick brown fox jumped over the lazy dog", filter: "dog", maxLength: 10)
+            .lineLimit(1)
+
     }
     .reasonablySizedPreview()
 }
