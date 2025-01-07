@@ -17,15 +17,17 @@ extension AttributedStringProtocol {
         else {
             return ""
         }
-        
+                
+        var beginning: AttributedString.Index = startIndex
+        var ending: AttributedString.Index = startIndex
+
         if let found = self.range(of: filter, options: [.caseInsensitive, .diacriticInsensitive]) {
             let end = Swift.min(length, characters.count)
             
             // prefix
             if found.upperBound <= index(startIndex, offsetByCharacters: end) {
                 let lastIndex = Swift.min(index(startIndex, offsetByCharacters: end), endIndex)
-                let out = AttributedString(self[..<lastIndex])
-                return out + (lastIndex == endIndex ? "" : ellipsis)
+                ending = lastIndex
             }
             else {
                 let firstIndex = Swift.min(found.lowerBound,
@@ -36,20 +38,29 @@ extension AttributedStringProtocol {
                 
                 // suffix
                 if suffix.characters.count <= length {
-                    return ellipsis + AttributedString(self[firstIndex ..< endIndex])
+                    beginning = firstIndex
+                    ending = endIndex
                 }
                 else {
                     
                     // middle
                     let start = index(firstIndex, offsetByCharacters: -(length - filter.count)/2)
-                    let out = AttributedString(self[
-                        start ..<
-                        index(start, offsetByCharacters: length)])
-                    return ellipsis + out + ellipsis
+                    beginning = start
+                    ending = index(start, offsetByCharacters: length)
                 }
             }
         }
         
-        return ""
+        let range = beginning ..< ending
+        var out = AttributedString(self[range])
+        
+        if ending < endIndex {
+            out += ellipsis
+        }
+        if beginning > startIndex {
+            out = ellipsis + out
+        }
+        
+        return out
     }
 }
