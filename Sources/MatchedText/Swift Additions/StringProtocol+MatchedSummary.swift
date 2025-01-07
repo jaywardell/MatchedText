@@ -20,11 +20,15 @@ extension StringProtocol {
                 return out + (lastIndex == endIndex ? "" : "…")
             }
             else {
-                let firstIndex = found.lowerBound
+                let firstIndex = Swift.min(found.lowerBound,
+                                           // don't worry about an index error here
+                                           // length cannot be longer than count here
+                                           index(endIndex, offsetBy: -length))
                 let suffix = self[firstIndex...]
                 if suffix.count <= length {
                     return "…" + String(self[firstIndex ..< endIndex])
                 }
+                
                 
 //                let lastIndex = Swift.min(index(firstIndex, offsetBy: length), endIndex)
 //                let out = String(self[firstIndex..<lastIndex])
