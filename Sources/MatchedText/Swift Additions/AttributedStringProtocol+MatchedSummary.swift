@@ -5,12 +5,14 @@
 //  Created by Joseph Wardell on 1/6/25.
 //
 
-public let ellipsis: String = "…"
+import Foundation
 
-extension StringProtocol {
+public let ellipsis: AttributedString = "…"
+
+extension AttributedStringProtocol {
         
     // TODO: should respect case-insensitive search
-    public func matchedSummary(length: Int, matching filter: any StringProtocol) -> String {
+    public func matchedSummary(length: Int, matching filter: any StringProtocol) -> AttributedString {
         guard length >= filter.count,
               !filter.isEmpty
         else {
@@ -18,32 +20,32 @@ extension StringProtocol {
         }
         
         if let found = self.range(of: filter) {
-            let end = Swift.min(length, count)
+            let end = Swift.min(length, characters.count)
             
             // prefix
-            if found.upperBound <= index(startIndex, offsetBy: end) {
-                let lastIndex = Swift.min(index(startIndex, offsetBy: end), endIndex)
-                let out = String(self[..<lastIndex])
+            if found.upperBound <= index(startIndex, offsetByCharacters: end) {
+                let lastIndex = Swift.min(index(startIndex, offsetByCharacters: end), endIndex)
+                let out = AttributedString(self[..<lastIndex])
                 return out + (lastIndex == endIndex ? "" : ellipsis)
             }
             else {
                 let firstIndex = Swift.min(found.lowerBound,
                                            // don't worry about an index error here
                                            // length cannot be longer than count here
-                                           index(endIndex, offsetBy: -length))
+                                           index(endIndex, offsetByCharacters: -length))
                 let suffix = self[firstIndex...]
                 
                 // suffix
-                if suffix.count <= length {
-                    return ellipsis + String(self[firstIndex ..< endIndex])
+                if suffix.characters.count <= length {
+                    return ellipsis + AttributedString(self[firstIndex ..< endIndex])
                 }
                 else {
                     
                     // middle
-                    let start = index(firstIndex, offsetBy: -(length - filter.count)/2)
-                    let out = String(self[
+                    let start = index(firstIndex, offsetByCharacters: -(length - filter.count)/2)
+                    let out = AttributedString(self[
                         start ..<
-                        index(start, offsetBy: length)])
+                        index(start, offsetByCharacters: length)])
                     return ellipsis + out + ellipsis
                 }
             }
