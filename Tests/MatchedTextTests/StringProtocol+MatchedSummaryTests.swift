@@ -40,7 +40,7 @@ struct String_MatchedSummary_Test {
         let sut = "cat on a tin roof"
         let match = "cat"
         let length = 6
-        let expected = sut.prefix(length) + "…"
+        let expected = sut.prefix(length) + ellipsis
         
         #expect(sut.matchedSummary(length: length, matching: match) == expected)
     }
@@ -49,7 +49,7 @@ struct String_MatchedSummary_Test {
         let sut = "cat on a tin roof"
         let match = "on"
         let length = 6
-        let expected = sut.prefix(length) + "…"
+        let expected = sut.prefix(length) + ellipsis
         
         #expect(sut.matchedSummary(length: length, matching: match) == expected)
     }
@@ -58,7 +58,7 @@ struct String_MatchedSummary_Test {
         let sut = "cat on a tin roof"
         let match = "roof"
         let length = match.count
-        let expected = "…" + sut.suffix(length)
+        let expected = ellipsis + sut.suffix(length)
         
         #expect(sut.matchedSummary(length: length, matching: match) == expected)
     }
@@ -67,7 +67,7 @@ struct String_MatchedSummary_Test {
         let sut = "cat on a tin roof"
         let match = "roof"
         let length = match.count + 4
-        let expected = "…" + sut.suffix(length)
+        let expected = ellipsis + sut.suffix(length)
         
         #expect(sut.matchedSummary(length: length, matching: match) == expected)
     }
@@ -76,7 +76,7 @@ struct String_MatchedSummary_Test {
         let sut = "cat on a tin roof"
         let match = "tin"
         let length = match.count + 5
-        let expected = "…" + sut.suffix(length)
+        let expected = ellipsis + sut.suffix(length)
         
         #expect(sut.matchedSummary(length: length, matching: match) == expected)
     }
@@ -85,7 +85,7 @@ struct String_MatchedSummary_Test {
         let sut = "cat on a tin roof"
         let match = "on"
         let length = match.count
-        let expected = "…" + match + "…"
+        let expected = ellipsis + match + ellipsis
         
         #expect(sut.matchedSummary(length: length, matching: match) == expected)
     }

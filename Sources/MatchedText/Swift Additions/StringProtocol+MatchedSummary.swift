@@ -5,7 +5,10 @@
 //  Created by Joseph Wardell on 1/6/25.
 //
 
+public let ellipsis: String = "…"
+
 extension StringProtocol {
+        
     public func matchedSummary(length: Int, matching filter: any StringProtocol) -> String {
         guard length >= filter.count,
               !filter.isEmpty
@@ -19,7 +22,7 @@ extension StringProtocol {
             if found.upperBound <= index(startIndex, offsetBy: end) {
                 let lastIndex = Swift.min(index(startIndex, offsetBy: end), endIndex)
                 let out = String(self[..<lastIndex])
-                return out + (lastIndex == endIndex ? "" : "…")
+                return out + (lastIndex == endIndex ? "" : ellipsis)
             }
             else {
                 let firstIndex = Swift.min(found.lowerBound,
@@ -30,13 +33,13 @@ extension StringProtocol {
                 
                 // suffix
                 if suffix.count <= length {
-                    return "…" + String(self[firstIndex ..< endIndex])
+                    return ellipsis + String(self[firstIndex ..< endIndex])
                 }
                 else {
                     
                     // middle
                     let out = String(self[firstIndex ..< index(firstIndex, offsetBy: length)])
-                    return "…" + out + "…"
+                    return ellipsis + out + ellipsis
                 }
                 
                 
