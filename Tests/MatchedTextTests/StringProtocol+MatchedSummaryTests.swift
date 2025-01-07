@@ -22,10 +22,17 @@ struct String_MatchedSummary_Test {
         #expect(sut.matchedSummary(length: 0, matching: "cat") == "")
     }
 
-    @Test func if_mayching_is_empty_returns_empty() async throws {
+    @Test func if_matching_is_empty_returns_empty() async throws {
         let sut = "cat"
         
         #expect(sut.matchedSummary(length: 10, matching: "") == "")
     }
 
+    @Test func if_matching_equals_self_returns_filter() async throws {
+        let sut = "cat"
+        let match = sut
+        let expected = sut
+        
+        #expect(sut.matchedSummary(length: 10, matching: match) == expected)
+    }
 }

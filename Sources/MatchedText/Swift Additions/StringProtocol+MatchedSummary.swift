@@ -6,7 +6,11 @@
 //
 
 extension StringProtocol {
-    public func matchedSummary(length: Int, matching: any StringProtocol) -> some StringProtocol {
-        ""
+    public func matchedSummary(length: Int, matching filter: any StringProtocol) -> String {
+        guard length > 0 else { return "" }
+        
+        if self.contains(filter) { return String(self) }
+        
+        return ""
     }
 }
