@@ -15,12 +15,7 @@ extension StringProtocol {
             let end = Swift.min(length, count)
             let endIndex = Swift.min(index(startIndex, offsetBy: end), endIndex)
             let out = String(self[..<endIndex])
-            if out.count < self.count {
-                return out + "…"
-            }
-            else {
-                return out
-            }
+            return out + (out.count < self.count ? "…" : "")
         }
 
         if self.contains(filter) { return String(self) }
