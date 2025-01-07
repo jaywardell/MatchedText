@@ -39,7 +39,7 @@ extension MatchedText {
     List {
         MatchedText("My little buttercup")
         MatchedText("has the sweetest smile")
-        MatchedText("deer little buttercup")
+        MatchedText("dear little buttercup")
         MatchedText("won't you stay a while")
 
         MatchedText(text: "Howdy World")
