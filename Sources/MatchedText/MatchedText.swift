@@ -21,18 +21,22 @@ public struct MatchedText: View {
     @Environment(\.searchFilter) var searchFilter
     @Environment(\.lineLength) var lineLength
     let highlight: (_ string: inout AttributedString,
-                    _ range: Range<AttributedString.Index>) -> Void
+                    _ range: Range<AttributedString.Index>,
+                    _ font: Font?) -> Void
     
     public init(
         text: AttributedString,
-        highlight: @escaping (_: inout AttributedString, _: Range<AttributedString.Index>) -> Void = Self.defaultHighlight
+        highlight: @escaping (_ string: inout AttributedString,
+                              _ range: Range<AttributedString.Index>,
+                              _ font: Font?) -> Void = Self.defaultHighlight
     ) {
         self.text = text
         self.highlight = highlight
     }
     
     public static func defaultHighlight(_ string: inout AttributedString,
-                                 in range: Range<AttributedString.Index>) {
+                                 in range: Range<AttributedString.Index>,
+                                        font: Font?) {
         string[range].foregroundColor = .accentColor
     }
 
@@ -43,7 +47,8 @@ public struct MatchedText: View {
 
 public extension MatchedText {
     init(_ string: any StringProtocol, highlight: @escaping (_ string: inout AttributedString,
-                                                             _ range: Range<AttributedString.Index>) -> Void = Self.defaultHighlight(_:in:)) {
+                                                             _ range: Range<AttributedString.Index>,
+                                                             _ font: Font?) -> Void = Self.defaultHighlight) {
         self.init(text: AttributedString(string),
                   highlight: highlight
         )
@@ -58,17 +63,17 @@ public extension MatchedText {
         MatchedText("dear little buttercup")
         MatchedText("won't you stay a while")
 
-        MatchedText(text: "Howdy World") { string, range in
+        MatchedText(text: "Howdy World") { string, range, _ in
             string[range].backgroundColor = .pink
         }
             .font(.largeTitle.bold())
 
-        MatchedText(text: "Hi There World") { string, range in
+        MatchedText(text: "Hi There World") { string, range, _ in
             string[range].foregroundColor = .pink
         }
             .font(.largeTitle.bold())
 
-        MatchedText(text: "Hello World") { string, range in
+        MatchedText(text: "Hello World") { string, range, _ in
             string[range].backgroundColor = .orange
         }
             .font(.largeTitle.bold())

@@ -12,12 +12,15 @@ public struct MultilineMatchedText: View {
     
     let text: String
     let highlight: (_ string: inout AttributedString,
-                    _ range: Range<AttributedString.Index>) -> Void
+                    _ range: Range<AttributedString.Index>,
+                    _ font: Font?) -> Void
 
     @Environment(\.searchFilter) var searchFilter
 
     public init(text: String,
-         highlight: @escaping (_: inout AttributedString, _: Range<AttributedString.Index>) -> Void = MatchedText.defaultHighlight) {
+         highlight: @escaping (_ string: inout AttributedString,
+                               _ range: Range<AttributedString.Index>,
+                               _ font: Font?) -> Void = MatchedText.defaultHighlight) {
         self.text = text
         self.highlight = highlight
     }
@@ -96,7 +99,7 @@ public struct MultilineMatchedText: View {
      -- Joyce Kilmer
     """
      // from https://poets.org/poem/trees
-    ) { string, range in
+    ) { string, range, _ in
         string[range].foregroundColor = .teal
         string[range].font = .title3.bold().italic()
     }

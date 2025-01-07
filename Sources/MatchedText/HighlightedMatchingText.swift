@@ -16,13 +16,16 @@ struct HighlightedMatchingText: View {
     let highlighted: String
     let maxLength: Int?
     let highlight: (_ string: inout AttributedString,
-                    _ range: Range<AttributedString.Index>) -> Void
+                    _ range: Range<AttributedString.Index>,
+                    _ font: Font?) -> Void
 
     @Environment(\.font) var font
     
     static func defaultHighlight(_ string: inout AttributedString,
-                                 in range: Range<AttributedString.Index>) {
+                                 in range: Range<AttributedString.Index>,
+                                 font: Font?) {
         string[range].backgroundColor = .accentColor
+        string[range].font = font?.bold() ?? .body
     }
     
     var displayed: AttributedString {
@@ -37,7 +40,7 @@ struct HighlightedMatchingText: View {
                 of: highlighted,
                 options: [.caseInsensitive, .diacriticInsensitive]
             ) {
-                highlight(&out, found)
+                highlight(&out, found, font)
                 start = found.upperBound
             }
             else {
@@ -63,7 +66,8 @@ extension HighlightedMatchingText {
         filter: String,
         maxLength: Int? = nil,
         highlight: @escaping (_ string: inout AttributedString,
-                              _ range: Range<AttributedString.Index>) -> Void = Self.defaultHighlight
+                              _ range: Range<AttributedString.Index>,
+                              _ font: Font?) -> Void = Self.defaultHighlight
     ) {
         self.init(text: AttributedString(text), highlighted: filter, maxLength: maxLength, highlight: highlight)
     }
@@ -80,10 +84,12 @@ extension HighlightedMatchingText {
         HighlightedMatchingText("Héllo World".prefix(5), filter: "e")
         HighlightedMatchingText("da doo ron ron ron, da doo ron ron", filter: "ron")
 
-        HighlightedMatchingText(text: "Hello World", highlighted: "ll", maxLength: nil) { string, range in
-            string[range].font = .title.bold()
+        HighlightedMatchingText(text: "Hello World",
+                                highlighted: "ll", maxLength: nil)
+        { string, range, font  in
+            string[range].font = font?.bold() ?? .body.bold()
         }
-            .font(.largeTitle.bold())
+        .font(.largeTitle.bold())
     }
     .font(.body)
     .reasonablySizedPreview()
