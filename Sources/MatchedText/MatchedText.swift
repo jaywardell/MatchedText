@@ -8,7 +8,7 @@
 import SwiftUI
 import VisualDebugging
 
-extension EnvironmentValues {
+public extension EnvironmentValues {
     @Entry var searchFilter: String = ""
     @Entry var lineLength: Int?
 }
