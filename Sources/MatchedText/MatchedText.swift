@@ -11,7 +11,7 @@ import VisualDebugging
 public extension EnvironmentValues {
     
     
-    /// The string that MatchedTextShould highlight
+    /// The string that MatchedText should highlight
     @Entry var matchedTextFilter: String = ""
     
     /// the maximum length of the String that a MatchedText instance should show.
