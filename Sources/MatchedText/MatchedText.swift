@@ -42,27 +42,38 @@ public struct MatchedText: View {
         self.highlight = highlight
     }
     
-    public static func defaultHighlight(_ string: inout AttributedString,
-                                 in range: Range<AttributedString.Index>,
-                                        font: Font?) {
-        string[range].foregroundColor = .accentColor
-    }
-
     public var body: some View {
         HighlightedMatchingText(text: text, highlighted: searchFilter, maxLength: lineLength, highlight: highlight)
     }
 }
 
+// MARK: -
+
+extension MatchedText {
+    
+    public static func defaultHighlight(_ string: inout AttributedString,
+                                 in range: Range<AttributedString.Index>,
+                                        font: Font?) {
+        string[range].foregroundColor = .accentColor
+    }
+}
+
+// MARK: -
+
 public extension MatchedText {
-    init(_ string: any StringProtocol, highlight: @escaping (_ string: inout AttributedString,
-                                                             _ range: Range<AttributedString.Index>,
-                                                             _ font: Font?) -> Void = Self.defaultHighlight) {
-        self.init(text: AttributedString(string),
+    init(_ string: any StringProtocol,
+         highlight: @escaping (
+            _ string: inout AttributedString,
+            _ range: Range<AttributedString.Index>,
+            _ font: Font?) -> Void = Self.defaultHighlight) {
+                
+                self.init(text: AttributedString(string),
                   highlight: highlight
         )
     }
 }
 
+// MARK: -
 
 #Preview("MatchedText") {
     List {

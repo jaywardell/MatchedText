@@ -20,14 +20,7 @@ struct HighlightedMatchingText: View {
                     _ font: Font?) -> Void
 
     @Environment(\.font) var font
-    
-    static func defaultHighlight(_ string: inout AttributedString,
-                                 in range: Range<AttributedString.Index>,
-                                 font: Font?) {
-        string[range].backgroundColor = .accentColor
-        string[range].font = font?.bold() ?? .body
-    }
-    
+        
     var displayed: AttributedString {
         var out: AttributedString = maxLength.map {
             text.previewString(matching: highlighted, length: $0)
@@ -59,6 +52,18 @@ struct HighlightedMatchingText: View {
     }
 }
 
+// MARK: -
+
+extension HighlightedMatchingText {
+    static func defaultHighlight(_ string: inout AttributedString,
+                                 in range: Range<AttributedString.Index>,
+                                 font: Font?) {
+        string[range].backgroundColor = .accentColor
+        string[range].font = font?.bold() ?? .body
+    }
+}
+
+// MARK: -
 
 extension HighlightedMatchingText {
     init(
@@ -72,6 +77,8 @@ extension HighlightedMatchingText {
         self.init(text: AttributedString(text), highlighted: filter, maxLength: maxLength, highlight: highlight)
     }
 }
+
+// MARK: -
 
 #Preview("HighlightedText") {
     List {
