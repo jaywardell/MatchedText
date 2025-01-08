@@ -1,4 +1,4 @@
 #  MatchedText
 
-a SwiftuI View that highlights the parts of a String to are found within another String.
+a SwiftuI View that highlights the parts of a String that are found within another String.
 
