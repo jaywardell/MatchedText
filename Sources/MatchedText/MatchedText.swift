@@ -33,7 +33,7 @@ public struct MatchedText: View {
     @Environment(\.maxMatchedTextLength) var lineLength
 
     public init(
-        text: AttributedString,
+        _ text: AttributedString,
         highlight: @escaping (_ string: inout AttributedString,
                               _ range: Range<AttributedString.Index>,
                               _ font: Font?) -> Void = Self.defaultHighlight
@@ -70,7 +70,7 @@ public extension MatchedText {
             _ range: Range<AttributedString.Index>,
             _ font: Font?) -> Void = Self.defaultHighlight) {
                 
-                self.init(text: AttributedString(string),
+                self.init(AttributedString(string),
                   highlight: highlight
         )
     }
@@ -85,17 +85,17 @@ public extension MatchedText {
         MatchedText("dear little buttercup")
         MatchedText("won't you stay a while")
 
-        MatchedText(text: "Howdy World") { string, range, _ in
+        MatchedText("Howdy World") { string, range, _ in
             string[range].backgroundColor = .pink
         }
             .font(.largeTitle.bold())
 
-        MatchedText(text: "Hi There World") { string, range, _ in
+        MatchedText("Hi There World") { string, range, _ in
             string[range].foregroundColor = .pink
         }
             .font(.largeTitle.bold())
 
-        MatchedText(text: "Hello World") { string, range, _ in
+        MatchedText("Hello World") { string, range, _ in
             string[range].backgroundColor = .orange
         }
             .font(.largeTitle.bold())
