@@ -43,7 +43,10 @@ public struct MatchedText: View {
     }
     
     public var body: some View {
-        HighlightedMatchingText(text: text, highlighted: searchFilter, maxLength: lineLength, highlight: highlight)
+        HighlightedMatchingText(text: text,
+                                highlighted: searchFilter,
+                                maxLength: lineLength,
+                                highlight: highlight)
     }
 }
 
