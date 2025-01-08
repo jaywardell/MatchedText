@@ -9,8 +9,15 @@ import SwiftUI
 import VisualDebugging
 
 public extension EnvironmentValues {
-    @Entry var searchFilter: String = ""
-    @Entry var lineLength: Int?
+    
+    
+    /// The string that MatchedTextShould highlight
+    @Entry var matchedTextFilter: String = ""
+    
+    /// the maximum length of the String that a MatchedText instance should show.
+    /// This will usually be nil, but in some cases you may want to set it
+    /// so that the filter appears within the visible area of the View
+    @Entry var maxMatchedTextLength: Int?
 }
 
 /// Presents an AttributedString with any instances of `searchFilter`
@@ -18,12 +25,13 @@ public extension EnvironmentValues {
 public struct MatchedText: View {
     
     let text: AttributedString
-    @Environment(\.searchFilter) var searchFilter
-    @Environment(\.lineLength) var lineLength
     let highlight: (_ string: inout AttributedString,
                     _ range: Range<AttributedString.Index>,
                     _ font: Font?) -> Void
-    
+
+    @Environment(\.matchedTextFilter) var searchFilter
+    @Environment(\.maxMatchedTextLength) var lineLength
+
     public init(
         text: AttributedString,
         highlight: @escaping (_ string: inout AttributedString,
@@ -79,9 +87,9 @@ public extension MatchedText {
             .font(.largeTitle.bold())
         MatchedText("The quick brown fox jumped over the lazy dog")
             .lineLimit(1)
-            .environment(\.lineLength, 20)
+            .environment(\.maxMatchedTextLength, 20)
     }
-    .environment(\.searchFilter, "e")
+    .environment(\.matchedTextFilter, "e")
     .font(.body)
     .reasonablySizedPreview()
 }

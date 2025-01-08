@@ -15,7 +15,7 @@ public struct MultilineMatchedText: View {
                     _ range: Range<AttributedString.Index>,
                     _ font: Font?) -> Void
 
-    @Environment(\.searchFilter) var searchFilter
+    @Environment(\.matchedTextFilter) var searchFilter
 
     public init(text: String,
          highlight: @escaping (_ string: inout AttributedString,
@@ -70,7 +70,7 @@ public struct MultilineMatchedText: View {
     """
      // from https://poets.org/poem/trees
     )
-    .environment(\.searchFilter, "tree")
+    .environment(\.matchedTextFilter, "tree")
     .padding(.horizontal)
     .frame(width: 150)
 }
@@ -103,7 +103,7 @@ public struct MultilineMatchedText: View {
         string[range].foregroundColor = .teal
         string[range].font = .title3.bold().italic()
     }
-    .environment(\.searchFilter, "ee")
-    .environment(\.lineLength, 25)
+    .environment(\.matchedTextFilter, "ee")
+    .environment(\.maxMatchedTextLength, 25)
     .padding()
 }
